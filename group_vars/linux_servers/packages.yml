@@ -1,0 +1,19 @@
+---
+# Packages to install on syslog servers
+linux_packages_present:
+  - rsyslog
+  - rsyslog-gnutls
+  - logrotate
+  - python3
+  - python3-pip
+  - curl
+  - wget
+  - neovim
+  - net-tools
+  - tcpdump
+  - sudo   
+
+# Packages to remove
+linux_packages_absent:
+  - telnet
+  - rsh

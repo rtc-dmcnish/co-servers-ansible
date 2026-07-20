@@ -1,0 +1,6 @@
+---
+syslog_groups_present:
+  - name: logviewer
+    description: "Group for users who can view logs"
+    gid: 10001
+    state: present

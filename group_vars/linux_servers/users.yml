@@ -1,0 +1,29 @@
+---
+# Users to manage on syslog servers
+linux_users:
+  - name: dmcnish
+    comment: "Doug McNish"
+    shell: /bin/bash
+    uid: 20001
+    groups:
+      - sudo
+    state: present
+    ssh_authorized_keys:
+      - "{{ lookup('file', 'ssh_keys/dmcnish.pub') }}"
+    password_lock: false
+
+  # - name: svcaccount
+  #   uid: 20002
+  #   comment: "Service Account"
+  #   shell: /sbin/nologin
+  #   groups: []
+  #   state: present
+  #   password_lock: true
+syslog_viewer_users:
+  - dmcnish
+
+# Users to remove
+linux_users_absent:
+  - name: olduser
+    state: absent
+

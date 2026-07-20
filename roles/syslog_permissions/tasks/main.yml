@@ -1,0 +1,16 @@
+---
+- name: Provision groups
+  ansible.builtin.group:
+    name: "{{ item.name }}"
+    gid: "{{ item.gid }}"
+    state: "{{ item.state }}"
+  loop: "{{ syslog_groups }}"
+  when: syslog_groups | length > 0
+
+- name: Assign users to logviewer group
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: "logviewer"
+    append: true
+  loop: "{{ syslog_users }}"
+  when: syslog_users | length > 0
