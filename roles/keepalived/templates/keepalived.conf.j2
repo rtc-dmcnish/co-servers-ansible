@@ -1,0 +1,34 @@
+! managed by ansible
+
+vrrp_script chk_rsyslog {
+    script "/etc/keepalived/check_rsyslog.sh"
+    interval 2
+    weight 2
+    fall 3
+    rise 2
+}
+
+vrrp_instance VI_1 {
+    state {{ vrrp_routers[inventory_hostname].vrrp_role }}
+    interface {{ vrrp_routers[inventory_hostname].vrrp_interface }}
+    virtual_router_id {{ vrrp_routers[inventory_hostname].vrrp_virtual_router_id }}
+    priority {{ vrrp_routers[inventory_hostname].vrrp_priority }}
+    advert_int 1
+
+    authentication {
+        auth_type PASS
+        auth_pass {{ vrrp_routers[inventory_hostname].vrrp_password }}
+    }
+
+    virtual_ipaddress {
+        {{ vrrp_routers[inventory_hostname].vrrp_virtual_ip }}/24 dev {{ vrrp_routers[inventory_hostname].vrrp_interface }}
+    }
+
+    track_script {
+        chk_rsyslog
+    }
+
+    notify_master "/etc/keepalived/notify.sh MASTER"
+    notify_backup "/etc/keepalived/notify.sh BACKUP"
+    notify_fault  "/etc/keepalived/notify.sh FAULT"
+}

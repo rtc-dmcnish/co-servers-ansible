@@ -1,0 +1,16 @@
+vrrp_routers:
+  syslog-cache-01:
+    vrrp_role: MASTER
+    vrrp_interface: ens192
+    vrrp_virtual_router_id: 51
+    vrrp_priority: 150
+    vrrp_virtual_ip: 192.168.4.30
+    vrrp_password: "{{ lookup('file', 'vrrp_password_51.pass') }}"
+
+  syslog-cache-02:
+    vrrp_role: BACKUP
+    vrrp_interface: ens192
+    vrrp_virtual_router_id: 51
+    vrrp_priority: 100
+    vrrp_virtual_ip: 192.168.4.30
+    vrrp_password: "{{ lookup('file', 'vrrp_password_51.pass') }}"

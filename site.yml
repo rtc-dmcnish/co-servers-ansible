@@ -23,6 +23,15 @@
   tags: 
     - install_docker
 
+- name: Configure keepalived on syslog caches
+  hosts: syslog_caches
+  gather_facts: true
+  tags:
+    - configure_keepalived
+  roles:
+    - role: keepalived
+
+
 - name: Provision Syslog storage
   hosts: syslog_storage
   gather_facts: true

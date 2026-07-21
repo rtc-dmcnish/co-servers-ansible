@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for vrrp
+- name: Restart keepalived
+  ansible.builtin.service:
+    name: keepalived
+    state: restarted
