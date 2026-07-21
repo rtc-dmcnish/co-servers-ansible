@@ -14,3 +14,14 @@
     append: true
   loop: "{{ syslog_users }}"
   when: syslog_users | length > 0
+
+- name: Calculate rsyslog template name
+  ansible.builtin.set_fact:
+      rsyslog_template_name: >-
+        {{ group_to_template[group_names | intersect(group_to_template.keys()) | first | default('default')] }}
+
+- name: Configure rsyslog
+  ansible.builtin.template:
+    src: "{{ rsyslog_template_name }}"
+    dest: "/etc/rsyslog.d/remote.conf"
+  notify: Restart syslog

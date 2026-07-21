@@ -1,3 +1,8 @@
 ---
 syslog_users: []
 syslog_groups: []
+syslog_groups_present: []
+syslog_viewer_users: []
+group_to_template:
+  syslog_storage: "rsyslog.syslog_storage.conf"
+  syslog_caches: "rsyslog.syslog_caches.conf"

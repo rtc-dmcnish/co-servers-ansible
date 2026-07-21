@@ -32,13 +32,16 @@
     - role: keepalived
 
 
-- name: Provision Syslog storage
-  hosts: syslog_storage
+- name: Configure syslog servers
+  hosts:
+    - syslog_caches
+    - syslog_storage
   gather_facts: true
   tags:
-    - install_syslog
+    - configure_syslog
   roles:
     - role: syslog
-      vars:
-        syslog_users: "{{ syslog_viewer_users }}"
-        syslog_groups: "{{ syslog_groups_present }}"
+  vars:
+    syslog_users: "{{ syslog_viewer_users }}"
+    syslog_groups: "{{ syslog_groups_present }}"
+
