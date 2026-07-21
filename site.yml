@@ -2,11 +2,10 @@
 - name: Provision Linux servers
   hosts: linux_servers
   gather_facts: true
-
   roles:
     - role: packages
       vars:
-        packages_present: "{{ linux_packages_present }}"
+        packages_present: "{{ linux_packages_present + (extra_packages_present | default([])) }}"
         packages_absent: "{{ linux_packages_absent }}"
 
     - role: users
