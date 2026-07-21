@@ -5,11 +5,13 @@ linux_users:
     comment: "Doug McNish"
     shell: /bin/bash
     uid: 20001
+    password: "{{ lookup('file', 'passwords/dmcnish.pass') }}"
     groups:
       - sudo
     state: present
     ssh_authorized_keys:
       - "{{ lookup('file', 'ssh_keys/dmcnish.pub') }}"
+    update_password: always
     password_lock: false
 
   # - name: svcaccount

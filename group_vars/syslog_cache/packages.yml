@@ -3,4 +3,5 @@ extra_packages_present:
   - keepalived
   - rsyslog
   - rsyslog-gnutls
+  - rsyslog-relp
   - logrotate
