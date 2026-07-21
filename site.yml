@@ -2,6 +2,8 @@
 - name: Provision Linux servers
   hosts: linux_servers
   gather_facts: true
+  tags:
+    - install_packages
   roles:
     - role: packages
       vars:
@@ -24,6 +26,8 @@
 - name: Provision Syslog storage
   hosts: syslog_storage
   gather_facts: true
+  tags:
+    - install_syslog
   roles:
     - role: syslog
       vars:
