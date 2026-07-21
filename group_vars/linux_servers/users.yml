@@ -19,8 +19,7 @@ linux_users:
   #   groups: []
   #   state: present
   #   password_lock: true
-syslog_viewer_users:
-  - dmcnish
+
 
 # Users to remove
 linux_users_absent:
