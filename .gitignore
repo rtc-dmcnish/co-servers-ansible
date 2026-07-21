@@ -1,4 +1,3 @@
-*.pub
 .venv
 __pycache__/
 *.pyc
