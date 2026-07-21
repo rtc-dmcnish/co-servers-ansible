@@ -1,9 +1,6 @@
 ---
 # Packages to install on syslog servers
 linux_packages_present:
-  - rsyslog
-  - rsyslog-gnutls
-  - logrotate
   - python3
   - python3-pip
   - curl
