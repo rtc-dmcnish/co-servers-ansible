@@ -2,5 +2,5 @@
 extra_packages_present:
   - rsyslog
   - rsyslog-gnutls
-  - rsyslog-relp
   - logrotate
+  - rsyslog-relp 
