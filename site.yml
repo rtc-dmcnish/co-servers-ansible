@@ -25,7 +25,7 @@
   hosts: syslog_storage
   gather_facts: true
   roles:
-    - role: syslog_permissions
+    - role: syslog
       vars:
         syslog_users: "{{ syslog_viewer_users }}"
         syslog_groups: "{{ syslog_groups_present }}"
