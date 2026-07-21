@@ -13,6 +13,14 @@
         users: "{{ linux_users }}"
         users_absent: "{{ linux_users_absent }}"
 
+- name: Provision Docker hosts
+  hosts: docker_hosts
+  gather_facts: true
+  roles:
+    - role: docker
+  tags: 
+    - install_docker
+
 - name: Provision Syslog storage
   hosts: syslog_storage
   gather_facts: true

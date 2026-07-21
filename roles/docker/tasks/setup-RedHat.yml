@@ -1,0 +1,6 @@
+---
+- name: Add Docker YUM repository
+  ansible.builtin.get_url:
+    url: "{{ docker_repo_base_url }}/centos/docker-ce.repo"
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: '0644'

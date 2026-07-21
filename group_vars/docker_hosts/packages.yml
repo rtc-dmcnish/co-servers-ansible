@@ -1,0 +1,5 @@
+---
+# Extra packages from standard distro repos for Docker hosts
+extra_packages_present:
+  - python3-docker
+  - gnupg2

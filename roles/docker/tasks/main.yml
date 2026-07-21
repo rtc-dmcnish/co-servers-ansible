@@ -1,0 +1,15 @@
+---
+- name: Set up Docker repository
+  ansible.builtin.include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Ensure Docker packages are installed
+  ansible.builtin.package:
+    name: "{{ docker_packages }}"
+    state: present
+
+- name: Assign users to docker group
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  loop: "{{ docker_users | default([]) }}"
