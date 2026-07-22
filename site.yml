@@ -1,15 +1,21 @@
 ---
-- name: Provision Linux servers
+- name: Install linux packages
   hosts: linux_servers
   gather_facts: true
   tags:
-    - install_packages
+    - packages
   roles:
     - role: packages
       vars:
         packages_present: "{{ linux_packages_present + (extra_packages_present | default([])) }}"
         packages_absent: "{{ linux_packages_absent }}"
 
+- name: Create linux users
+  hosts: linux_servers
+  gather_facts: true
+  tags:
+    - users
+  roles:
     - role: users
       vars:
         users: "{{ linux_users }}"
@@ -21,13 +27,13 @@
   roles:
     - role: docker
   tags: 
-    - install_docker
+    - docker
 
 - name: Configure keepalived on syslog caches
   hosts: syslog_caches
   gather_facts: true
   tags:
-    - configure_keepalived
+    - keepalived
   roles:
     - role: keepalived
 
@@ -38,7 +44,7 @@
     - syslog_storage
   gather_facts: true
   tags:
-    - configure_syslog
+    - syslog
   roles:
     - role: syslog
   vars:
