@@ -25,3 +25,9 @@
     src: "{{ rsyslog_template_name }}"
     dest: "/etc/rsyslog.d/remote.conf"
   notify: Restart syslog
+
+- name: Configure log rotation
+  ansible.builtin.template:
+    src: "logrotate.conf"
+    dest: "/etc/logrotate.d/remote"
+  when: inventory_hostname in groups['syslog_storage']
