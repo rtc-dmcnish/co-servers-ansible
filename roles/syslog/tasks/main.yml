@@ -26,8 +26,19 @@
     dest: "/etc/rsyslog.d/remote.conf"
   notify: Restart syslog
 
+- name: Set log store directory permissions
+  ansible.builtin.file:
+    path: "/var/log/remote"
+    state: directory
+    owner: root
+    group: logviewer
+    mode: "0750"
+    recurse: yes
+  when: inventory_hostname in groups['syslog_storage']
+
 - name: Configure log rotation
   ansible.builtin.template:
     src: "logrotate.conf"
     dest: "/etc/logrotate.d/remote"
   when: inventory_hostname in groups['syslog_storage']
+

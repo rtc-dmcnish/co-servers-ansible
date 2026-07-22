@@ -3,6 +3,7 @@ syslog_users: []
 syslog_groups: []
 syslog_groups_present: []
 syslog_viewer_users: []
+omfile_options: 'fileGroup="logviewer" dirGroup="logviewer" dirCreateMode="0750" fileCreateMode="0640"'
 group_to_template:
   syslog_storage: "rsyslog.syslog_storage.conf"
   syslog_caches: "rsyslog.syslog_caches.conf"

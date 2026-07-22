@@ -9,6 +9,7 @@ linux_packages_present:
   - net-tools
   - tcpdump
   - sudo   
+  - htop
 
 # Packages to remove
 linux_packages_absent:
