@@ -6,6 +6,7 @@
     state: "{{ item.state }}"
   loop: "{{ syslog_groups }}"
   when: syslog_groups | length > 0
+  tags: groups
 
 - name: Assign users to logviewer group
   ansible.builtin.user:
@@ -14,6 +15,7 @@
     append: true
   loop: "{{ syslog_users }}"
   when: syslog_users | length > 0
+  tags: users
 
 - name: Calculate rsyslog template name
   ansible.builtin.set_fact:
@@ -35,7 +37,8 @@
     mode: "0750"
     recurse: yes
   when: inventory_hostname in groups['syslog_storage']
-
+  tags: permissions
+  
 - name: Configure log rotation
   ansible.builtin.template:
     src: "logrotate.conf"
