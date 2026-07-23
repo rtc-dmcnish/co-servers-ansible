@@ -4,3 +4,4 @@ extra_packages_present:
   - rsyslog-gnutls
   - logrotate
   - rsyslog-relp 
+  - rsyslog-elasticsearch
