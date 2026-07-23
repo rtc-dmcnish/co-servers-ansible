@@ -1,0 +1,23 @@
+---
+- name: Collect package facts into a single CSV
+  hosts: all
+  tasks:
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Save all package facts to a single local CSV file
+      ansible.builtin.copy:
+        content: |
+          hostname,package_name,version
+          {% for host in play_hosts %}
+          {% for pkg_name, pkg_list in hostvars[host].ansible_facts.packages.items() %}
+          {% for pkg in pkg_list %}
+          {{ host }},{{ pkg_name }},{{ pkg.version }}
+          {% endfor %}
+          {% endfor %}
+          {% endfor %}
+        dest: "./all_hosts_packages.csv"
+        mode: '0644'
+      delegate_to: localhost
+      run_once: true
