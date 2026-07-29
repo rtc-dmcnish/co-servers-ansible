@@ -36,3 +36,17 @@ app.noc.lan {
     handle {
     }
 }
+
+netbox.noc.lan {
+    tls {
+        issuer internal {
+            ca internal
+        }
+    }
+    acme_server {
+        ca internal
+    }
+    handle {
+        reverse_proxy localhost:8000
+    }
+}
