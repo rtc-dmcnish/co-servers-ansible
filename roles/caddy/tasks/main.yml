@@ -14,3 +14,12 @@
   ansible.builtin.package:
     name: "{{ caddy_packages }}"
     state: present
+
+- name: Deploy Caddy configuration from template
+  ansible.builtin.template:
+    src: caddyfile-{{ inventory_hostname }}.j2
+    dest: /etc/caddy/Caddyfile
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart Caddy

@@ -1,0 +1,38 @@
+{
+    pki {
+        ca internal {
+            name "NOC PS Internal CA"
+            root_cn "NOC PS Internal Root CA"
+            intermediate_cn "NOC PS Internal Intermediate CA"
+        }
+    }
+    admin {{ ansible_facts["default_ipv4"]["address"] }}:2019   # bind admin API to an internal IP, not localhost/public
+}
+
+:80 {
+	# Set this path to your site's directory.
+	root * /usr/share/caddy
+
+	# Enable the static file server.
+	file_server
+
+	# Another common task is to set up a reverse proxy:
+	# reverse_proxy localhost:8080
+
+	# Or serve a PHP site through php-fpm:
+	# php_fastcgi localhost:9000
+}
+
+
+noc-apps.rtctel.com {
+    tls {
+        issuer internal {
+            ca internal
+        }
+    }
+    acme_server {
+        ca internal
+    }
+    handle {
+    }
+}
