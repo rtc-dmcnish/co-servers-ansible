@@ -1,0 +1,2 @@
+local_a_records:
+  app.noc.lan: "192.168.4.200"

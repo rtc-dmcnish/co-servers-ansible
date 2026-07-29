@@ -1,0 +1,34 @@
+# /etc/dnsmasq.conf
+# Forwarding resolver, authoritative only for lab.example
+
+# --- Upstream forwarding ---
+no-resolv                  # ignore /etc/resolv.conf; use only servers listed below
+{% for server in dnsmasq_upstream_servers %}
+server={{ server }}
+{% endfor %}
+strict-order                # query forwarders in the order listed, not in parallel
+
+# --- Local A records ---
+{% for host, ip in local_a_records.items() %}
+host-record={{ host }},{{ ip }}
+{% endfor %}
+
+# --- Local lab domain from /etc/hosts ---
+domain={{ dnsmasq_domain }}           # domain suffix applied to bare hostnames
+expand-hosts                 # append the domain= suffix to short names in /etc/hosts
+local=/{{ dnsmasq_domain }}/          # never forward lab.example queries upstream (return NXDOMAIN on miss)
+addn-hosts=/etc/hosts        # explicit for clarity; this is the default hosts source anyway
+
+# --- Sanity/hardening ---
+domain-needed                # don't forward plain hostnames with no dots to upstream
+bogus-priv                   # don't forward reverse lookups for RFC1918 space upstream
+
+# --- Listener ---
+#interface=eth0                # replace with the actual lab-facing interface
+#bind-interfaces
+listen-address={{ dnsmasq_listen_address }}  # alternative to interface= if binding by IP
+
+# --- Misc ---
+cache-size={{ dnsmasq_cache_size }}
+#log-queries                  # uncomment for troubleshooting
+

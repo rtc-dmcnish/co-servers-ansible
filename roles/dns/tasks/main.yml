@@ -1,0 +1,12 @@
+---
+- name: Ensure dnsmasq is installed
+  ansible.builtin.package:
+    name: dnsmasq
+    state: present
+
+
+- name: Deploy dnsmasq configuration from template
+  ansible.builtin.template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+  notify: Restart dnsmasq

@@ -39,6 +39,14 @@
   roles:
     - role: keepalived
 
+- name: Configure dnsmasq on syslog caches
+  hosts: syslog_caches
+  gather_facts: true
+  tags:
+    - dns
+  roles:
+    - role: dns
+
 
 - name: Configure syslog servers
   hosts:
