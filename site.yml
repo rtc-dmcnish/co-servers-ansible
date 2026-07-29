@@ -26,8 +26,10 @@
   gather_facts: true
   roles:
     - role: docker
+    - role: caddy
   tags: 
     - docker
+
 
 - name: Configure keepalived on syslog caches
   hosts: syslog_caches

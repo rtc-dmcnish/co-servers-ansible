@@ -1,0 +1,12 @@
+---
+
+caddy_debian_apt_repo_url: "https://dl.cloudsmith.io/public/caddy/stable"
+
+caddy_packages:
+  - caddy
+
+
+caddy_arch_map:
+  x86_64: amd64 
+  aarch64: arm64
+  armv7l: armhf

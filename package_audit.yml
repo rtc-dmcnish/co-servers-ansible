@@ -1,23 +1,41 @@
 ---
-- name: Collect package facts into a single CSV
-  hosts: all
-  tasks:
-    - name: Gather package facts
-      ansible.builtin.package_facts:
-        manager: auto
+- name: Save Remote Debsecan Reports Locally Per Host
+  hosts: debian_servers
+  gather_facts: yes
 
-    - name: Save all package facts to a single local CSV file
+  tasks:
+    - name: Ensure debsecan is installed
+      ansible.builtin.apt:
+        name: debsecan
+        state: present
+
+    - name: Execute debsecan audit
+      ansible.builtin.command: "debsecan --suite {{ ansible_facts['distribution_release'] }} --format summary --only-fixed"
+      register: debsecan_output
+      changed_when: false
+      failed_when: false
+
+    - name: Ensure local reports directory exists
+      ansible.builtin.file:
+        path: "./security_reports"
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+      become: no
+      run_once: true
+
+    - name: Save report to local text file
+      vars:
+        debian_security_url: "https://security-tracker.debian.org/tracker/"
       ansible.builtin.copy:
         content: |
-          hostname,package_name,version
-          {% for host in play_hosts %}
-          {% for pkg_name, pkg_list in hostvars[host].ansible_facts.packages.items() %}
-          {% for pkg in pkg_list %}
-          {{ host }},{{ pkg_name }},{{ pkg.version }}
-          {% endfor %}
-          {% endfor %}
-          {% endfor %}
-        dest: "./all_hosts_packages.csv"
+          ==================================================
+          Debsecan Security Report
+          Host: {{ inventory_hostname }}
+          Date: {{ ansible_facts['date_time'].iso8601 }}
+          ==================================================
+          {{ debsecan_output.stdout | regex_replace('(?m)^', debian_security_url) }}
+        dest: "./security_reports/{{ inventory_hostname }}_debsecan.txt"
         mode: '0644'
       delegate_to: localhost
-      run_once: true
+      become: no

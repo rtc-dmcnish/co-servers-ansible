@@ -1,0 +1,16 @@
+---
+- name: Add Caddy APT repository
+  ansible.builtin.deb822_repository:
+    name: caddy
+    types: deb
+    uris: "{{ caddy_debian_apt_repo_url }}/deb/{{ ansible_facts['distribution'] | lower }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: main
+    architectures: "{{ caddy_arch_map[ansible_facts['architecture']] | default(ansible_facts['architecture']) }}"
+    signed_by: "{{ caddy_debian_apt_repo_url }}/gpg.key"
+    state: present
+  
+- name: Ensure Caddy is installed
+  ansible.builtin.package:
+    name: "{{ caddy_packages }}"
+    state: present
