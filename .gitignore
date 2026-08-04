@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 *.csv
 security_reports/*
+.DS_Store
