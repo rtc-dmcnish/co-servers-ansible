@@ -61,3 +61,16 @@
     syslog_users: "{{ syslog_viewer_users }}"
     syslog_groups: "{{ syslog_groups_present }}"
 
+- name: Create SecureCRT sessions file for all hosts
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Copy SecureCRT sessions file
+      ansible.builtin.template:
+        src: templates/sessions.xml.j2
+        dest: sessions/sessions.xml
+        mode: '0644'
+      delegate_to: localhost
+  tags:
+    - sessions
