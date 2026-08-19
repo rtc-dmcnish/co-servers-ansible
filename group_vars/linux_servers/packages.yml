@@ -10,6 +10,7 @@ linux_packages_present:
   - tcpdump
   - sudo   
   - htop
+  - needrestart
 
 # Packages to remove
 linux_packages_absent:

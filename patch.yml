@@ -9,10 +9,10 @@
         update_cache: yes
       register: apt_output
 
-    - name: Display upgraded packages from APT terminal log
-      ansible.builtin.debug:
-        var: apt_output.stdout_lines
-      when: apt_output.stdout_lines is defined and apt_output.changed
+    # - name: Display upgraded packages from APT terminal log
+    #   ansible.builtin.debug:
+    #     var: apt_output.stdout_lines
+    #   when: apt_output.stdout_lines is defined and apt_output.changed
 
     - name: Check if a reboot is required
       ansible.builtin.stat:
