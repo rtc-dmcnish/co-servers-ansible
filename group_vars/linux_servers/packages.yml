@@ -11,6 +11,7 @@ linux_packages_present:
   - sudo   
   - htop
   - needrestart
+  - unzip
 
 # Packages to remove
 linux_packages_absent:

@@ -50,3 +50,31 @@ netbox.noc.lan {
         reverse_proxy localhost:8000
     }
 }
+
+prometheus.noc.lan {
+    tls {
+        issuer internal {
+            ca internal
+        }
+    }
+    acme_server {
+        ca internal
+    }
+    handle {
+        reverse_proxy localhost:9090
+    }
+}
+
+metrics.noc.lan {
+    tls {
+        issuer internal {
+            ca internal
+        }
+    }
+    acme_server {
+        ca internal
+    }
+    handle {
+        reverse_proxy localhost:3000
+    }
+}
