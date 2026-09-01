@@ -12,6 +12,7 @@
     comment: "{{ item.comment | default(omit) }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups | default([]) }}"
+    uid: "{{ item.uid | default(omit) }}"
     append: true
     state: "{{ item.state | default('present') }}"
     password_lock: "{{ item.password_lock | default(false) }}"

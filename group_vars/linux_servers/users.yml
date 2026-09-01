@@ -49,18 +49,7 @@ linux_users:
       - "{{ lookup('file', 'ssh_keys/jmays.pub') }}"
     update_password: always
     password_lock: false
-  - name: fcamp
-    comment: "Franklin Camp"
-    shell: /bin/bash
-    uid: 20005
-    password: "{{ lookup('file', 'passwords/fcamp.pass') }}"
-    groups:
-      - sudo
-    state: present
-    ssh_authorized_keys:
-      - "{{ lookup('file', 'ssh_keys/fcamp.pub') }}"
-    update_password: always
-    password_lock: false
+
 
   # - name: svcaccount
   #   uid: 20002
@@ -73,6 +62,6 @@ linux_users:
 
 # Users to remove
 linux_users_absent:
-  - name: olduser
+  - name: fcamp
     state: absent
 

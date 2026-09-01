@@ -3,3 +3,4 @@ local_a_records:
   netbox.noc.lan: "192.168.4.200"
   prometheus.noc.lan: "192.168.4.200"
   metrics.noc.lan: "192.168.4.200"
+  dmarc.noc.lan: "192.168.4.200"

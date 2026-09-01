@@ -78,3 +78,17 @@ metrics.noc.lan {
         reverse_proxy localhost:3000
     }
 }
+
+dmarc.noc.lan {
+    tls {
+        issuer internal {
+            ca internal
+        }
+    }
+    acme_server {
+        ca internal
+    }
+    handle {
+        reverse_proxy localhost:3030
+    }
+}
