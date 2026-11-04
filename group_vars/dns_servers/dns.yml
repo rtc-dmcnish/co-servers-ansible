@@ -4,3 +4,4 @@ local_a_records:
   prometheus.noc.lan: "192.168.4.200"
   metrics.noc.lan: "192.168.4.200"
   dmarc.noc.lan: "192.168.4.200"
+  call-records.noc.lan: "192.168.4.248"
