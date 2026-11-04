@@ -1,5 +1,14 @@
 [tools]
 uv = "latest"
 
+[tasks.dns]
+run = "uv run ansible-playbook site.yml --tags=dns"
+
 [tasks.patch]
 run = "uv run ansible-playbook patch.yml"
+
+[tasks.packages]
+run = "uv run ansible-playbook site.yml --tags=packages"
+
+[tasks.vrrp]
+run = "uv run ansible-playbook site.yml --tags=vrrp"
