@@ -11,6 +11,6 @@ vrrp_routers:
     vrrp_role: BACKUP
     vrrp_interface: ens192
     vrrp_virtual_router_id: 51
-    vrrp_priority: 100
+    vrrp_priority: 200
     vrrp_virtual_ip: 192.168.4.30
     vrrp_password: "{{ lookup('file', 'vrrp_password_51.pass') }}"
