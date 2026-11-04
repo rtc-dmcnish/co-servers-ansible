@@ -14,23 +14,19 @@
     #     var: apt_output.stdout_lines
     #   when: apt_output.stdout_lines is defined and apt_output.changed
 
-    - name: Check if a reboot is required
-      ansible.builtin.stat:
-        path: /var/run/reboot-required
-      register: reboot_required_file
+    - name: Run needrestart check
+      ansible.builtin.command: needrestart -p
+      register: needrestart_output
+      changed_when: false
+      failed_when: needrestart_output.rc not in [0, 1, 2]
+
+    - name: Set reboot requirement facts
+      ansible.builtin.set_fact:
+        needs_reboot: "{{ 'CRIT - Kernel:' in needrestart_output.stdout }}"
 
     - name: Notify when a reboot is needed
       ansible.builtin.debug:
         msg: "WARNING: {{ inventory_hostname }} requires a reboot to complete updates!"
-      when: reboot_required_file.stat.exists
+      when: needs_reboot
 
-    - name: Show which specific packages triggered the reboot
-      ansible.builtin.command: cat /var/run/reboot-required.pkgs
-      register: reboot_pkgs
-      changed_when: false
-      when: reboot_required_file.stat.exists
 
-    - name: Print packages causing the reboot
-      ansible.builtin.debug:
-        msg: "Packages causing reboot: {{ reboot_pkgs.stdout_lines }}"
-      when: reboot_required_file.stat.exists and reboot_pkgs.stdout is defined
