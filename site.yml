@@ -35,7 +35,7 @@
   hosts: syslog_caches
   gather_facts: true
   tags:
-    - keepalived
+    - vrrp
   roles:
     - role: keepalived
 
