@@ -13,6 +13,7 @@ linux_packages_present:
   - needrestart
   - unzip
   - prometheus-node-exporter
+  - hx
 
 # Packages to remove
 linux_packages_absent:
